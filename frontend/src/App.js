@@ -1,7 +1,7 @@
 // frontend/src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import axios from 'axios'; 
 // Import Toastify CSS and Container
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Default styling for react-toastify
@@ -20,7 +20,7 @@ import AiPathGeneratorPage from './pages/AiPathGeneratorPage'; // Assuming you h
 import Header from './components/Header';
 import Footer from './components/Footer';
 // import ProtectedRoute from './components/ProtectedRoute'; // If you implement this
-
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 function App() {
   return (
     <Router>
