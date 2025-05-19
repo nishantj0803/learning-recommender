@@ -1,119 +1,142 @@
 // frontend/src/pages/RegisterPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify'; // Import toast
 
 function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState(null); // State for messages (success/error)
+  const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null); // Can be removed if toasts handle all error feedback
+  // const [message, setMessage] = useState(null); // For specific messages like password mismatch
 
-  const submitHandler = async (e) => { // Make the function async
-    e.preventDefault();
+  const navigate = useNavigate();
 
-    // --- Basic Validation ---
-    if (password !== confirmPassword) {
-      setMessage('Passwords do not match');
-      return; // Stop the function if passwords don't match
-    } else {
-       setMessage(null); // Clear previous messages
+  let userInfo = null;
+  try {
+    const storedUserInfo = localStorage.getItem('userInfo');
+    if (storedUserInfo) userInfo = JSON.parse(storedUserInfo);
+  } catch (e) { /* Ignore error, user is not logged in */ }
+
+  useEffect(() => {
+    if (userInfo && userInfo.token) {
+      navigate('/dashboard'); // Redirect if already logged in
     }
-    // --- End Validation ---
+  }, [navigate, userInfo]);
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    // setMessage(null); // Clear previous non-toast messages
+    // setError(null);
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!");
+      // setMessage("Passwords do not match!"); // Optionally keep for inline message
+      return;
+    }
+
+    setLoading(true);
     try {
-      // --- Make API Call to Backend ---
       const config = {
         headers: {
-          'Content-Type': 'application/json', // Tell the backend we're sending JSON
+          'Content-Type': 'application/json',
         },
       };
-
-      // Send POST request to the backend registration endpoint
+      // The backend /api/auth/register might return the user object without a token,
+      // or with a token if you want to auto-login upon registration.
+      // Adjust based on your backend's response.
+      // For this example, assume it doesn't auto-login and just returns user data or success message.
       const { data } = await axios.post(
-        `http://localhost:5001/api/auth/register`, // Corrected URL
+        '/api/auth/register', // Using relative path for proxy
         { name, email, password },
         config
       );
-      // --- End API Call ---
 
-      // If successful (backend returns 201), set a success message
-      setMessage('Registration Successful!');
-      // Optional: Clear the form fields after success
-      setName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
+      toast.success('Registration successful! Please login.');
+      setLoading(false);
+      navigate('/login'); // Redirect to login page after successful registration
 
-      // TODO: Maybe redirect to login page after successful registration
-
-    } catch (error) {
-      // Handle errors from the backend
-      // The error response from backend might have a message in error.response.data.message
-      setMessage(error.response && error.response.data.message
-                 ? error.response.data.message
-                 : error.message); // Display the error message
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || err.message || 'Registration failed. Please try again.';
+      toast.error(errorMsg);
+      // setError(errorMsg); // Optionally keep for inline error display
+      setLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="page-container" style={{ maxWidth: '500px' }}>
       <h2>Register</h2>
-      {/* Display messages here */}
-      {message && <p style={{ color: message.includes('Successful') ? 'green' : 'red' }}>{message}</p>} {/* Simple styling for message */}
-
+      {/* {error && <div className="message error">{error}</div>} */}
+      {/* {message && <div className="message error">{message}</div>} {/* For password mismatch etc. */}
+      {loading && <p>Registering...</p>}
       <form onSubmit={submitHandler}>
-        <div>
-          <label htmlFor="name">Name</label> {/* Add htmlFor for accessibility */}
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
           <input
-            id="name" // Add id to match htmlFor
             type="text"
+            id="name"
             placeholder="Enter name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            disabled={loading}
           />
         </div>
-        <div>
-          <label htmlFor="email">Email Address</label> {/* Add htmlFor */}
+
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
           <input
-            id="email" // Add id
             type="email"
+            id="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={loading}
           />
         </div>
-        <div>
-          <label htmlFor="password">Password</label> {/* Add htmlFor */}
+
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
           <input
-            id="password" // Add id
             type="password"
+            id="password"
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={loading}
           />
         </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label> {/* Add htmlFor */}
+
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
-            id="confirmPassword" // Add id
             type="password"
+            id="confirmPassword"
             placeholder="Confirm password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            disabled={loading}
           />
         </div>
-        <button type="submit">Register</button>
+
+        <button type="submit" className="button" disabled={loading}>
+          {loading ? 'Processing...' : 'Register'}
+        </button>
       </form>
-      {/* TODO: Add Link to Login Page using react-router-dom's Link component */}
-      {/* <p>
-        Have an Account? <Link to="/login">Login</Link>
-      </p> */}
+
+      <div style={{ marginTop: '15px' }}>
+        Already have an account?{' '}
+        <Link to="/login">
+          Login here
+        </Link>
+      </div>
     </div>
   );
 }

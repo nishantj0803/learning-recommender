@@ -1,40 +1,52 @@
 // backend/server.js
-const express = require('express');
 const dotenv = require('dotenv');
-const cors = require('cors'); // Ensure cors is imported
-const connectDB = require('./config/db');
-
 dotenv.config();
+const express = require('express');
+
+const connectDB = require('./config/db');
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const courseRoutes = require('./routes/courseRoutes');
+const lessonRoutes = require('./routes/lessonRoutes');
+const progressRoutes = require('./routes/progressRoutes');
+const recommendationRoutes = require('./routes/recommendationRoutes'); // Import recommendation routes
+const cors = require('cors');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+const aiRoutes = require('./routes/aiRoutes');
+
 connectDB();
 
 const app = express();
 
-// --- Middleware ---
-// CORS Middleware (try the simple app.use(cors()) for now to be broad)
-app.use(cors());
+app.use(express.json()); // Middleware to parse JSON request bodies
+app.use(cors()); // Middleware to enable Cross-Origin Resource Sharing
 
-// Body Parser Middleware (to parse JSON in request body)
-app.use(express.json());
+// Use your routes
+app.use('/api/auth', authRoutes); // Authentication routes (login, register)
+app.use('/api/user', userRoutes); // User-related routes (e.g., get profile)
+app.use('/api/courses', courseRoutes); // Course-related routes
+app.use('/api/lessons', lessonRoutes); // Lesson-related routes
+app.use('/api/progress', progressRoutes); // User progress-related routes
+app.use('/api/recommendations', recommendationRoutes); // Mount recommendation routes at /api/recommendations
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/courses', courseRoutes);
+app.use('/api/lessons', lessonRoutes);
+app.use('/api/progress', progressRoutes);
+app.use('/api/recommendations', recommendationRoutes);
+app.use('/api/ai', aiRoutes);
 
-// --- Routes ---
-// Basic test route - Add this temporarily
-app.get('/test', (req, res) => {
-  res.send('Test route working!');
-});
+// Error Handling Middleware (These should be the last middleware used)
+// notFound middleware handles requests that don't match any defined routes
+app.use(notFound);
+// errorHandler middleware handles errors thrown by other middleware or route handlers
+app.use(errorHandler);
 
 
-// Mount the auth routes at /api/auth
-app.use('/api/auth', require('./routes/authRoutes'));
+const PORT = process.env.PORT || 5001; // Define the port the server will listen on
 
-// TODO: Add other route groups later
-
-// --- Error Handling Middleware (We can add this later) ---
-// app.use(notFound);
-// app.use(errorHandler);
-
-
-const PORT = process.env.PORT || 5001;
-
+// Start the server and listen on the specified port
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log("DEBUG SERVER.JS: GEMINI_API_KEY from process.env:", process.env.GEMINI_API_KEY ? "Key Found" : "KEY IS MISSING OR UNDEFINED");
 });

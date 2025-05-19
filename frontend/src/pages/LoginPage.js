@@ -1,118 +1,107 @@
 // frontend/src/pages/LoginPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// If you add a link to the register page later, uncomment this:
-// import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { toast } from 'react-toastify'; // <-- Import toast
 
 function LoginPage() {
-  // State variables for email, password, and messages
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState(null); // State for messages (success/error)
+  const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null); // Can be removed if toasts handle all error feedback
 
-  // Initialize the navigate function from react-router-dom
   const navigate = useNavigate();
 
-  // Handler for the form submission
-  const submitHandler = async (e) => {
-    e.preventDefault(); // Prevent the default form submission and page reload
+  useEffect(() => {
+    try {
+      const userInfoFromStorage = localStorage.getItem('userInfo');
+      if (userInfoFromStorage) {
+        const parsedUserInfo = JSON.parse(userInfoFromStorage);
+        if (parsedUserInfo && parsedUserInfo.token) {
+          navigate('/dashboard');
+        }
+      }
+    } catch (e) {
+      console.error("Error parsing userInfo from localStorage during redirect check (LoginPage):", e);
+    }
+  }, [navigate]);
 
-    setMessage(null); // Clear any previous messages
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    // setError(null); // Clear previous page-level errors if any
 
     try {
-      // --- Make API Call to Backend for Login ---
       const config = {
         headers: {
-          'Content-Type': 'application/json', // Tell the backend we're sending JSON
+          'Content-Type': 'application/json',
         },
       };
-
-      // Send POST request to the backend login endpoint
-      // *** IMPORTANT *** Replace <YOUR_PORT> with your backend's actual running port (e.g., 5001)
       const { data } = await axios.post(
-        `http://localhost:5001/api/auth/login`, // Use your backend port!
-        { email, password }, // Send email and password in the request body
-        config // Include the headers
+        '/api/auth/login', // Using relative path for proxy
+        { email, password },
+        config
       );
-      // --- End API Call ---
 
-      // If the request is successful (axios throws an error for non-2xx responses by default)
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      window.dispatchEvent(new Event('authChange'));
+      
+      toast.success('Logged in successfully!'); // <-- Success Toast
+      setLoading(false);
+      navigate('/dashboard');
 
-      setMessage('Login Successful!'); // Display a success message on the page
-
-      // The backend should return user info and the token in the response data
-      if (data && data.token) {
-          // Store the received JWT token in the browser's local storage
-          // This token will be used for accessing protected routes later
-          localStorage.setItem('userToken', data.token);
-
-          // Optional: Store other basic user info if your backend returns it
-          // if (data.userInfo) { // Assuming backend sends a user info object
-          //   localStorage.setItem('userInfo', JSON.stringify(data.userInfo));
-          // }
-
-          // --- Redirect the user to another page ---
-          // Redirect them to the main application page (e.g., dashboard)
-          // Replace '/dashboard' with the actual path you want to redirect to
-          navigate('/dashboard'); // Redirect the user after successful login
-          // --- End Redirect ---
-
-      } else {
-           // If login was successful but no token was received (unlikely with your backend code)
-           setMessage('Login failed: No token received');
-      }
-
-
-    } catch (error) {
-      // --- Handle Errors from the Backend ---
-      // If the backend returns an error response (e.g., 401, 400)
-      // The error message from the backend is usually in error.response.data.message
-      setMessage(error.response && error.response.data.message
-                 ? error.response.data.message // Display the backend's error message
-                 : error.message); // Otherwise, display a generic error message (e.g., network error)
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || err.message || 'Login failed. Please check your credentials.';
+      toast.error(errorMsg); // <-- Error Toast
+      // setError(errorMsg); // Optionally keep for inline error display too
+      setLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="page-container" style={{ maxWidth: '500px' }}>
       <h2>Login</h2>
-      {/* Display success or error messages */}
-      {message && <p style={{ color: message.includes('Successful') ? 'green' : 'red' }}>{message}</p>} {/* Simple styling */}
-
-      {/* Login Form */}
+      {/* If you remove the error state, remove this line too */}
+      {/* {error && <div className="message error">{error}</div>} */}
+      {loading && <p>Loading...</p>}
       <form onSubmit={submitHandler}>
-        <div>
+        <div className="form-group">
           <label htmlFor="email">Email Address</label>
           <input
-            id="email"
             type="email"
+            id="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required // Make email required
+            required
+            disabled={loading}
           />
         </div>
-        <div>
+
+        <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
-            id="password"
             type="password"
+            id="password"
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required // Make password required
+            required
+            disabled={loading}
           />
         </div>
-        {/* Submit Button */}
-        <button type="submit">Login</button>
+
+        <button type="submit" className="button" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
 
-       {/* Link to the Registration Page (optional) */}
-       {/* Uncomment this if you want a link */}
-       {/* <p>
-         New User? <Link to="/register">Register</Link>
-       </p> */}
+      <div style={{ marginTop: '15px' }}>
+        New Customer?{' '}
+        <Link to="/register">
+          Register here
+        </Link>
+      </div>
     </div>
   );
 }

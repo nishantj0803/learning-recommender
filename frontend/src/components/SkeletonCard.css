@@ -1,0 +1,89 @@
+/* frontend/src/components/SkeletonCard.css */
+
+.skeleton-card {
+    background-color: var(--component-background); /* Use theme variable */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px; /* Matches .card-item margin if used in a list */
+    box-shadow: var(--card-shadow);
+    opacity: 0.7; /* Make it slightly transparent */
+  }
+  
+  html[data-theme='dark'] .skeleton-card {
+    background-color: var(--component-background); /* Dark theme component background */
+    border-color: var(--border-color-dark);
+  }
+  
+  .skeleton-line {
+    background: linear-gradient(
+      90deg,
+      var(--medium-gray-light) 25%, /* Lighter part of shimmer */
+      var(--light-gray-light) 50%,  /* Middle part (even lighter) */
+      var(--medium-gray-light) 75%  /* Lighter part again */
+    );
+    background-size: 200% 100%; /* Make gradient wider than element for shimmer effect */
+    animation: skeleton-loading 1.5s infinite linear;
+    border-radius: 4px;
+    margin-bottom: 10px; /* Default spacing between lines */
+    height: 12px; /* Default height for text lines */
+  }
+  
+  html[data-theme='dark'] .skeleton-line {
+    background: linear-gradient(
+      90deg,
+      var(--medium-gray-dark) 25%,
+      #4a4a4e 50%, /* Slightly lighter than medium-gray-dark */
+      var(--medium-gray-dark) 75%
+    );
+    background-size: 200% 100%;
+  }
+  
+  
+  .skeleton-line.skeleton-title {
+    height: 24px; /* Taller for titles */
+    margin-bottom: 15px;
+  }
+  
+  .skeleton-line.skeleton-text {
+    /* Uses default height or can be overridden inline */
+  }
+  
+  .skeleton-meta-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .skeleton-line.skeleton-tag {
+    height: 22px; /* Specific height for tag-like placeholders */
+    margin-bottom: 0; /* No bottom margin if in a group */
+  }
+  
+  .skeleton-line.skeleton-button {
+    height: 40px; /* Matches typical button height */
+    margin-top: 20px; /* Space above button placeholder */
+    align-self: flex-start; /* If card is flex column */
+  }
+  
+  
+  /* Specific skeleton for module items */
+  .skeleton-module-item .skeleton-title {
+      height: 20px;
+      margin-bottom: 12px;
+  }
+  .skeleton-module-item .skeleton-text {
+      height: 10px;
+      margin-bottom: 8px;
+  }
+  
+  
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  

@@ -1,33 +1,65 @@
 // frontend/src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Import Toastify CSS and Container
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Default styling for react-toastify
+
+// Page Imports
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
-import ProtectedRoute from './ProtectedRoute'; // Import ProtectedRoute
+import CourseDetailsPage from './pages/CourseDetailsPage';
+import LessonDetailsPage from './pages/LessonDetailsPage';
+import ProfilePage from './pages/ProfilePage';
+import AllCoursesPage from './pages/AllCoursesPage'; // Assuming you have this
+import AiPathGeneratorPage from './pages/AiPathGeneratorPage'; // Assuming you have this
+
+// Component Imports
+import Header from './components/Header';
+import Footer from './components/Footer';
+// import ProtectedRoute from './components/ProtectedRoute'; // If you implement this
 
 function App() {
   return (
     <Router>
-      <main>
+      {/* ToastContainer should be rendered once at the top level */}
+      <ToastContainer
+        position="top-right" // Or any other position: top-left, top-center, bottom-left, bottom-right, bottom-center
+        autoClose={5000} // Auto close after 5 seconds
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light" // Options: light, dark, colored
+        // You can also apply a transition effect
+        // transition: Bounce, // or Slide, Zoom, Flip
+      />
+      {/* The rest of your app */}
+      <Header />
+      <main className="app-main-content">
         <Routes>
-          {/* Public Routes (accessible to everyone) */}
-          {/* Maybe the root path redirects to login if not logged in */}
-          <Route path="/" element={<div><h1>Welcome to the App!</h1>{/* Add links to Login/Register */}</div>} />
+          {/* Public Routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={<LoginPage />} exact />
 
-          {/* Protected Routes (only accessible if logged in) */}
-          {/* Wrap the Dashboard route with ProtectedRoute */}
-          <Route
-            path="/dashboard"
-            element={<ProtectedRoute element={DashboardPage} />} // Use ProtectedRoute
-          />
+          {/* Protected Routes */}
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/courses" element={<AllCoursesPage />} /> {/* For course discovery */}
+          <Route path="/courses/:id" element={<CourseDetailsPage />} />
+          <Route path="/lessons/:id" element={<LessonDetailsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/ai-path-generator" element={<AiPathGeneratorPage />} />
 
-          {/* Optional: Fallback route for unknown paths */}
-          {/* <Route path="*" element={<div>Page Not Found</div>} /> */}
+          {/* Add other routes as needed */}
         </Routes>
       </main>
+      <Footer />
     </Router>
   );
 }

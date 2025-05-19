@@ -1,0 +1,2237 @@
+/* frontend/src/index.css */
+
+/* --- Define CSS Variables for Color Palette --- */
+:root {
+    /* Primary & Accents (Light Theme Defaults) */
+    --primary-blue-light: #007bff;
+    --dark-blue-light: #0056b3;
+    --extra-dark-blue-light: #003f7f;
+    --secondary-green-light: #28a745;
+    --warning-yellow-light: #ffc107;
+    --danger-red-light: #dc3545; /* For errors or destructive actions */
+    --info-blue-light: #17a2b8; /* For informational messages */
+  
+  
+    /* Neutral Grays & Backgrounds (Light Theme Defaults) */
+    --light-gray-light: #f8f9fa;
+    --medium-gray-light: #e9ecef;
+    --info-gray-light: #6c757d;
+    --dark-gray-light: #343a40;
+  
+    /* Text & Borders (Light Theme Defaults) */
+    --text-color-light-theme: #212529; /* Primary text color for light backgrounds */
+    --text-muted-light-theme: #6c757d; /* Muted text for less emphasis */
+    --text-on-dark-bg-light: #ffffff; /* Text for dark backgrounds (e.g., on primary buttons) */
+    --border-color-light: #dee2e6;
+  
+    /* Base (Light Theme Defaults) */
+    --white-base: #fff;
+    --black-base: #000;
+  
+    /* Accent Colors (Light Theme Defaults) */
+    --accent-purple-light: #6f42c1;
+    --accent-teal-light: #20c997;
+    --accent-pink-light: #e83e8c;
+  
+    /* --- SEMANTIC VARIABLES (Light Theme) --- */
+    /* These variables should be used throughout the application */
+    /* They will be overridden in dark mode */
+  
+    /* General */
+    --page-background: var(--light-gray-light);
+    --text-color: var(--text-color-light-theme);
+    --text-muted: var(--text-muted-light-theme);
+    --border-color: var(--border-color-light);
+    --link-color: var(--primary-blue-light);
+    --link-hover-color: var(--dark-blue-light);
+    --focus-ring-color: rgba(0, 123, 255, 0.25); /* For focus outlines */
+  
+    /* Components */
+    --component-background: var(--white-base);
+    --component-background-alt: var(--light-gray-light); /* For nested or alternate components */
+    --card-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  
+    /* Header */
+    --header-background: var(--dark-gray-light);
+    --header-text-color: var(--white-base);
+    --header-link-hover-color: var(--medium-gray-light);
+  
+    /* Footer */
+    --footer-background: var(--dark-gray-light);
+    --footer-text-color: rgba(255, 255, 255, 0.7);
+    --footer-link-color: rgba(255, 255, 255, 0.9);
+    --footer-link-hover-color: var(--white-base);
+  
+    /* Buttons */
+    --button-primary-background: var(--primary-blue-light);
+    --button-primary-text: var(--white-base);
+    --button-primary-hover-background: var(--dark-blue-light);
+    --button-primary-active-background: var(--extra-dark-blue-light);
+  
+    --button-secondary-background: var(--info-gray-light);
+    --button-secondary-text: var(--white-base);
+    --button-secondary-hover-background: #5a6268;
+    --button-secondary-active-background: #545b62;
+  
+    --button-success-background: var(--secondary-green-light);
+    --button-success-text: var(--white-base);
+    --button-success-hover-background: #1e7e34;
+    --button-success-active-background: #1c7430;
+  
+    --button-danger-background: var(--danger-red-light);
+    --button-danger-text: var(--white-base);
+    --button-danger-hover-background: #c82333;
+    --button-danger-active-background: #bd2130;
+  
+    --button-warning-background: var(--warning-yellow-light);
+    --button-warning-text: var(--text-color-light-theme); /* Dark text on yellow for contrast */
+    --button-warning-hover-background: #e0a800;
+    --button-warning-active-background: #d39e00;
+  
+    --button-disabled-background: var(--medium-gray-light);
+    --button-disabled-text: var(--info-gray-light);
+    --button-disabled-opacity: 0.65;
+  
+    /* Forms */
+    --form-input-background: var(--white-base);
+    --form-input-border-color: var(--border-color-light);
+    --form-input-text-color: var(--text-color-light-theme);
+    --form-input-placeholder-color: var(--info-gray-light);
+    --form-input-focus-border-color: var(--primary-blue-light);
+    --form-input-focus-box-shadow: 0 0 0 0.2rem var(--focus-ring-color);
+  
+    /* Messages & Alerts */
+    --message-success-text: #155724;
+    --message-success-background: #d4edda;
+    --message-success-border: #c3e6cb;
+  
+    --message-error-text: #721c24;
+    --message-error-background: #f8d7da;
+    --message-error-border: #f5c6cb;
+  
+    --message-info-text: #0c5460;
+    --message-info-background: #d1ecf1;
+    --message-info-border: #bee5eb;
+  
+    /* Recommendation Labels */
+    --recommendation-next-step-color: var(--primary-blue-light);
+    --recommendation-interest-based-color: var(--secondary-green-light);
+    --recommendation-category-based-color: var(--warning-yellow-light);
+    --recommendation-fallback-recent-color: var(--info-gray-light);
+  
+    /* Code blocks */
+    --code-background: var(--medium-gray-light);
+    --code-text-color: var(--text-color-light-theme);
+  
+    /* Transitions */
+    --transition-speed-fast: 0.15s;
+    --transition-speed-normal: 0.3s;
+    --transition-easing: ease-in-out;
+  }
+  
+  /* --- DARK MODE THEME --- */
+  html[data-theme='dark'] {
+    /* Primary & Accents (Dark Theme) */
+    --primary-blue-dark: #3399ff; /* Brighter blue for dark mode */
+    --dark-blue-dark: #5cadff;
+    --extra-dark-blue-dark: #85c6ff;
+    --secondary-green-dark: #30c957;
+    --warning-yellow-dark: #ffd03c;
+    --danger-red-dark: #f25a68;
+    --info-blue-dark: #29b8ce;
+  
+    /* Neutral Grays & Backgrounds (Dark Theme) */
+    --light-gray-dark: #2a2a2e;  /* Was very light, now dark */
+    --medium-gray-dark: #3c3c41; /* Was medium light, now medium dark */
+    --info-gray-dark: #a0a0a5;   /* Was darker gray, now lighter gray for info text */
+    --dark-gray-dark: #1e1e22;   /* Was very dark, now base dark for components */
+  
+    /* Text & Borders (Dark Theme) */
+    --text-color-dark-theme: #e0e0e5; /* Default light text for dark backgrounds */
+    --text-muted-dark-theme: #888e94;
+    --text-on-light-bg-dark: #121212; /* Text for light backgrounds (e.g., on primary buttons if they become light) */
+    --border-color-dark: #45454a;
+  
+    /* Base (Dark Theme) */
+    --white-base-dark: #121212; /* 'White' becomes the darkest background */
+    --black-base-dark: #ffffff; /* 'Black' becomes the lightest text */
+  
+    /* Accent Colors (Dark Theme) */
+    --accent-purple-dark: #8a5fd7;
+    --accent-teal-dark: #38d9a9;
+    --accent-pink-dark: #f062a4;
+  
+  
+    /* --- SEMANTIC VARIABLES (Dark Theme Overrides) --- */
+    --page-background: #121212; /* Common dark theme page background */
+    --text-color: var(--text-color-dark-theme);
+    --text-muted: var(--text-muted-dark-theme);
+    --border-color: var(--border-color-dark);
+    --link-color: var(--primary-blue-dark);
+    --link-hover-color: var(--dark-blue-dark);
+    --focus-ring-color: rgba(51, 153, 255, 0.35); /* Adjusted for dark mode */
+  
+    /* Components */
+    --component-background: var(--dark-gray-dark); /* Slightly lighter dark for cards, modals */
+    --component-background-alt: #242428;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --card-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  
+    /* Header */
+    --header-background: #18181a;
+    --header-text-color: var(--text-color-dark-theme);
+    --header-link-hover-color: var(--info-gray-dark);
+  
+    /* Footer */
+    --footer-background: #18181a;
+    --footer-text-color: rgba(224, 224, 229, 0.7);
+    --footer-link-color: rgba(224, 224, 229, 0.9);
+    --footer-link-hover-color: var(--black-base-dark);
+  
+    /* Buttons */
+    --button-primary-background: var(--primary-blue-dark);
+    --button-primary-text: #0a0a0a; /* Dark text on brighter blue for contrast */
+    --button-primary-hover-background: var(--dark-blue-dark);
+    --button-primary-active-background: var(--extra-dark-blue-dark);
+  
+    --button-secondary-background: var(--info-gray-dark);
+    --button-secondary-text: #121212;
+    --button-secondary-hover-background: #868e96;
+    --button-secondary-active-background: #7c858d;
+  
+    --button-success-background: var(--secondary-green-dark);
+    --button-success-text: #121212;
+    --button-success-hover-background: #27a247;
+    --button-success-active-background: #259741;
+  
+    --button-danger-background: var(--danger-red-dark);
+    --button-danger-text: var(--white-base); /* White text can work here */
+    --button-danger-hover-background: #e84352;
+    --button-danger-active-background: #e03141;
+  
+    --button-warning-background: var(--warning-yellow-dark);
+    --button-warning-text: #332700; /* Very dark text on bright yellow */
+    --button-warning-hover-background: #f0c028;
+    --button-warning-active-background: #e0b014;
+  
+    --button-disabled-background: var(--medium-gray-dark);
+    --button-disabled-text: var(--info-gray-dark);
+  
+    /* Forms */
+    --form-input-background: var(--light-gray-dark); /* Slightly lighter than component bg */
+    --form-input-border-color: var(--border-color-dark);
+    --form-input-text-color: var(--text-color-dark-theme);
+    --form-input-placeholder-color: var(--info-gray-dark);
+    --form-input-focus-border-color: var(--primary-blue-dark);
+    --form-input-focus-box-shadow: 0 0 0 0.2rem var(--focus-ring-color);
+  
+    /* Messages & Alerts */
+    --message-success-text: #a3cfbb;
+    --message-success-background: #1e3b25;
+    --message-success-border: #2a5238;
+  
+    --message-error-text: #f0b9bf;
+    --message-error-background: #4d1f25;
+    --message-error-border: #692b33;
+  
+    --message-info-text: #a1d9e3;
+    --message-info-background: #1c3f49;
+    --message-info-border: #275763;
+  
+    /* Recommendation Labels */
+    --recommendation-next-step-color: var(--primary-blue-dark);
+    --recommendation-interest-based-color: var(--secondary-green-dark);
+    --recommendation-category-based-color: var(--warning-yellow-dark);
+    --recommendation-fallback-recent-color: var(--info-gray-dark);
+  
+    /* Code blocks */
+    --code-background: var(--medium-gray-dark);
+    --code-text-color: var(--text-color-dark-theme);
+  }
+  /* --- End CSS Variables --- */
+  
+  /* --- Global Box Sizing --- */
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+  /* --- End Global Box Sizing --- */
+  
+  /* Basic body styling */
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--page-background); /* USE SEMANTIC VARIABLE */
+    color: var(--text-color); /* USE SEMANTIC VARIABLE */
+    line-height: 1.6;
+    transition: background-color var(--transition-speed-normal) var(--transition-easing), color var(--transition-speed-normal) var(--transition-easing);
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+    background-color: var(--code-background);
+    color: var(--code-text-color);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+  }
+  
+  /* Container for the whole app content (Header, main, Footer) */
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  
+  /* Basic styling for headings */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--link-color); /* Headings often share link color or a primary accent */
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+  
+  h1 { font-size: 2.5em; }
+  h2 { font-size: 2em; }
+  h3 { font-size: 1.75em; }
+  h4 { font-size: 1.5em; }
+  h5 { font-size: 1.25em; }
+  h6 { font-size: 1em; }
+  
+  
+  /* Basic styling for paragraphs */
+  p {
+    margin-bottom: 1rem; /* Consistent spacing */
+  }
+  
+  /* Basic styling for links */
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color var(--transition-speed-fast) var(--transition-easing);
+  }
+  
+  a:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color);
+  }
+  
+  a:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+    text-decoration: none; /* Optional: remove underline on focus if outline is preferred */
+  }
+  
+  /* Enhanced Styling for Buttons */
+  button, .button { /* Added .button class for a-tags styled as buttons */
+    display: inline-block; /* For a-tags */
+    background-color: var(--button-primary-background);
+    color: var(--button-primary-text);
+    padding: 10px 20px;
+    border: 1px solid transparent; /* Add border for consistency, can be same as bg */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center; /* For a-tags */
+    text-decoration: none; /* For a-tags */
+    transition: background-color var(--transition-speed-fast) var(--transition-easing),
+                color var(--transition-speed-fast) var(--transition-easing),
+                border-color var(--transition-speed-fast) var(--transition-easing),
+                transform var(--transition-speed-fast) var(--transition-easing),
+                box-shadow var(--transition-speed-fast) var(--transition-easing);
+    outline: none;
+    margin-right: 10px;
+    line-height: 1.5; /* Ensure text is vertically centered */
+  }
+  
+  button:last-child, .button:last-child {
+      margin-right: 0;
+  }
+  
+  button:hover, .button:hover {
+    background-color: var(--button-primary-hover-background);
+    border-color: var(--button-primary-hover-background); /* Keep border consistent */
+    text-decoration: none; /* For a-tags */
+  }
+  
+  button:active, .button:active {
+      background-color: var(--button-primary-active-background);
+      transform: scale(0.98);
+  }
+  
+  button:focus-visible, .button:focus-visible {
+      box-shadow: 0 0 0 0.2rem var(--focus-ring-color);
+  }
+  
+  button:disabled, .button:disabled {
+    background-color: var(--button-disabled-background);
+    color: var(--button-disabled-text);
+    border-color: var(--button-disabled-background);
+    cursor: not-allowed;
+    opacity: var(--button-disabled-opacity);
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Secondary Button Style */
+  .button-secondary {
+      background-color: var(--button-secondary-background);
+      color: var(--button-secondary-text);
+      border-color: var(--button-secondary-background);
+  }
+  .button-secondary:hover {
+      background-color: var(--button-secondary-hover-background);
+      border-color: var(--button-secondary-hover-background);
+  }
+  .button-secondary:active {
+      background-color: var(--button-secondary-active-background);
+  }
+  
+  /* Add more button variants (success, danger, warning) if needed */
+  .button-success {
+      background-color: var(--button-success-background);
+      color: var(--button-success-text);
+      border-color: var(--button-success-background);
+  }
+  .button-success:hover { background-color: var(--button-success-hover-background); border-color: var(--button-success-hover-background); }
+  .button-success:active { background-color: var(--button-success-active-background); }
+  
+  .button-danger {
+      background-color: var(--button-danger-background);
+      color: var(--button-danger-text);
+      border-color: var(--button-danger-background);
+  }
+  .button-danger:hover { background-color: var(--button-danger-hover-background); border-color: var(--button-danger-hover-background); }
+  .button-danger:active { background-color: var(--button-danger-active-background); }
+  
+  
+  /* Basic styling for lists */
+  ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0; /* Add bottom margin to lists */
+  }
+  
+  /* Enhanced Styling for List Items (Cards) */
+  li.card-item { /* Use a specific class for card-like list items */
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--component-background);
+    box-shadow: var(--card-shadow);
+    transition: box-shadow var(--transition-speed-normal) var(--transition-easing),
+                transform var(--transition-speed-fast) var(--transition-easing),
+                background-color var(--transition-speed-normal) var(--transition-easing),
+                border-color var(--transition-speed-normal) var(--transition-easing);
+    /* cursor: pointer; Removed, apply only if the whole li is a link target */
+  }
+  
+  li.card-item:hover {
+      box-shadow: var(--card-hover-shadow);
+      transform: translateY(-3px);
+  }
+  
+  /* Specific styles for nested lists (e.g., lessons within modules) */
+  li.card-item ul, li.card-item ol {
+      margin-top: 10px;
+      padding-left: 20px;
+      border-left: 2px solid var(--border-color);
+  }
+  
+  li.card-item li { /* Nested list items */
+      margin-bottom: 8px;
+      padding: 10px;
+      background-color: var(--component-background-alt);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow for nested items */
+      transition: box-shadow var(--transition-speed-fast) var(--transition-easing),
+                  background-color var(--transition-speed-normal) var(--transition-easing),
+                  border-color var(--transition-speed-normal) var(--transition-easing);
+      transform: none;
+  }
+  
+  li.card-item li:hover {
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transform: none;
+  }
+  
+  /* Style for the lesson title link within nested lists */
+  li.card-item li a {
+      display: block;
+      padding: 0;
+      margin: 0;
+  }
+  
+  
+  /* Styles for form elements */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  select { /* Added select element */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--form-input-border-color);
+    background-color: var(--form-input-background);
+    color: var(--form-input-text-color);
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color var(--transition-speed-fast) var(--transition-easing),
+                box-shadow var(--transition-speed-fast) var(--transition-easing),
+                background-color var(--transition-speed-normal) var(--transition-easing),
+                color var(--transition-speed-normal) var(--transition-easing);
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--form-input-focus-border-color);
+    box-shadow: var(--form-input-focus-box-shadow);
+    outline: none;
+  }
+  
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  input[type="password"]::placeholder,
+  textarea::placeholder {
+    color: var(--form-input-placeholder-color);
+    opacity: 0.8;
+  }
+  
+  /* Styles for form labels */
+  label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: var(--text-color); /* Ensure label color adapts */
+  }
+  
+  /* Styles for the form itself */
+  form {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: var(--component-background-alt); /* Use alt background for forms */
+      transition: background-color var(--transition-speed-normal) var(--transition-easing),
+                  border-color var(--transition-speed-normal) var(--transition-easing);
+  }
+  
+  /* Style for form groups (optional, if you wrap labels and inputs in a div) */
+  .form-group {
+      margin-bottom: 15px;
+  }
+  
+  
+  /* Styles for messages */
+  .message {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  .message.success {
+    color: var(--message-success-text);
+    background-color: var(--message-success-background);
+    border-color: var(--message-success-border);
+  }
+  
+  .message.error { /* Renamed from .error to .message.error for specificity */
+    color: var(--message-error-text);
+    background-color: var(--message-error-background);
+    border-color: var(--message-error-border);
+  }
+  
+  .message.info {
+    color: var(--message-info-text);
+    background-color: var(--message-info-background);
+    border-color: var(--message-info-border);
+  }
+  
+  
+  /* Container for the main page content */
+  .page-container {
+      width: 100%;
+      max-width: 1100px; /* Slightly increased max-width */
+      margin: 20px auto;
+      padding: 20px;
+      background-color: var(--component-background); /* Use component background */
+      border-radius: 8px;
+      box-shadow: var(--card-shadow); /* Use card shadow for page container too */
+      transition: background-color var(--transition-speed-normal) var(--transition-easing),
+                  box-shadow var(--transition-speed-normal) var(--transition-easing);
+  }
+  
+  /* Style for the logout button (if specific styling needed beyond generic button) */
+  .logout-button {
+      /* Example: make it a danger button */
+      /* background-color: var(--button-danger-background); */
+      /* color: var(--button-danger-text); */
+  }
+  .logout-button:hover {
+      /* background-color: var(--button-danger-hover-background); */
+  }
+  
+  /* Styles for the recommendation labels */
+  .recommendation-label {
+      font-weight: bold;
+      margin-right: 5px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.85em;
+  }
+  
+  .recommendation-label.next-step { color: var(--button-primary-text); background-color: var(--recommendation-next-step-color); }
+  .recommendation-label.interest-based { color: var(--button-success-text); background-color: var(--recommendation-interest-based-color); }
+  .recommendation-label.category-based { color: var(--button-warning-text); background-color: var(--recommendation-category-based-color); } /* Ensure good contrast */
+  .recommendation-label.fallback-recent { color: var(--text-color); background-color: var(--recommendation-fallback-recent-color); }
+  
+  
+  /* Styles for the lesson content area */
+  .lesson-content {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: var(--component-background-alt); /* Use alt background */
+      transition: background-color var(--transition-speed-normal) var(--transition-easing),
+                  border-color var(--transition-speed-normal) var(--transition-easing);
+  }
+  
+  /* Style for the lesson progress/mark complete section */
+  .lesson-progress-section {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 15px;
+      transition: border-color var(--transition-speed-normal) var(--transition-easing);
+  }
+  
+  /* Style for the 'Lesson Completed!' text */
+  .lesson-completed-status {
+      color: var(--secondary-green-light); /* Direct use, or make semantic if needed */
+      font-weight: bold;
+  }
+  html[data-theme='dark'] .lesson-completed-status {
+      color: var(--secondary-green-dark);
+  }
+  
+  
+  /* --- Refined Styles for Page Sections --- */
+  .page-section {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      transition: border-color var(--transition-speed-normal) var(--transition-easing);
+  }
+  
+  .page-container > .page-section:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+  }
+  /* --- End Refined Styles for Page Sections --- */
+  
+  
+  /* Styles for Header */
+  .app-header {
+      background-color: var(--header-background);
+      color: var(--header-text-color);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* This shadow might need adjustment for dark mode */
+      margin-bottom: 0;
+      flex-shrink: 0;
+      transition: background-color var(--transition-speed-normal) var(--transition-easing),
+                  color var(--transition-speed-normal) var(--transition-easing);
+  }
+  html[data-theme='dark'] .app-header {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Darker shadow for dark mode */
+  }
+  
+  
+  .app-header .site-title h1 {
+      color: var(--header-text-color); /* Use semantic variable */
+      margin: 0;
+      font-size: 1.8em;
+      transition: color var(--transition-speed-normal) var(--transition-easing);
+  }
+  
+  .app-header .main-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center; /* Align items vertically */
+  }
+  
+  .app-header .main-nav li {
+      margin-left: 20px;
+      padding: 0;
+      border: none;
+      background-color: transparent;
+      box-shadow: none;
+      transition: none; /* Li itself doesn't need transition here */
+  }
+  
+  
+  .app-header .main-nav a {
+      color: var(--header-text-color); /* Use semantic variable */
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px; /* Add some padding to nav links */
+      border-radius: 4px; /* Rounded corners for links */
+      transition: color var(--transition-speed-fast) var(--transition-easing),
+                  background-color var(--transition-speed-fast) var(--transition-easing);
+  }
+  
+  .app-header .main-nav a:hover,
+  .app-header .main-nav a:focus-visible {
+      color: var(--header-link-hover-color);
+      background-color: rgba(255, 255, 255, 0.1); /* Subtle background on hover/focus */
+      text-decoration: none;
+  }
+  html[data-theme='dark'] .app-header .main-nav a:hover,
+  html[data-theme='dark'] .app-header .main-nav a:focus-visible {
+      background-color: rgba(255, 255, 255, 0.08); /* Adjust for dark mode */
+  }
+  
+  /* Style for nav buttons (like logout) */
+  .app-header .main-nav .nav-button {
+    background-color: transparent;
+    color: var(--header-text-color);
+    border: 1px solid var(--header-text-color);
+    padding: 6px 12px;
+    font-size: 0.9em;
+    margin-left: 10px; /* Space from other nav items */
+  }
+  
+  .app-header .main-nav .nav-button:hover {
+    background-color: var(--header-text-color);
+    color: var(--header-background); /* Invert colors on hover */
+    border-color: var(--header-text-color);
+  }
+  
+  
+  /* Styles for the main content area that grows */
+  .app-main-content {
+      flex-grow: 1;
+      padding: 0 20px; /* Default padding */
+      width: 100%;
+  }
+  
+  
+  /* Styles for Footer */
+  .app-footer {
+      background-color: var(--footer-background);
+      color: var(--footer-text-color);
+      padding: 20px; /* Increased padding */
+      text-align: center;
+      flex-shrink: 0;
+      font-size: 0.9em;
+      transition: background-color var(--transition-speed-normal) var(--transition-easing),
+                  color var(--transition-speed-normal) var(--transition-easing);
+  }
+  
+  .app-footer p {
+      margin: 0 0 5px 0; /* Add a little space between paragraphs if multiple */
+  }
+  
+  .app-footer a {
+      color: var(--footer-link-color);
+      text-decoration: underline;
+      transition: color var(--transition-speed-fast) var(--transition-easing);
+  }
+  
+  .app-footer a:hover {
+      color: var(--footer-link-hover-color);
+  }
+  
+  /* Theme Toggle Button Styling */
+  .theme-toggle-button {
+    background-color: transparent;
+    color: var(--header-text-color); /* Use header text color */
+    border: 1px solid transparent; /* No border by default */
+    padding: 6px;
+    border-radius: 50%; /* Make it round */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px; /* Space from nav items */
+    transition: background-color var(--transition-speed-fast) var(--transition-easing), color var(--transition-speed-fast) var(--transition-easing);
+  }
+  
+  .theme-toggle-button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle background on hover */
+  }
+  html[data-theme='dark'] .theme-toggle-button:hover {
+      background-color: rgba(255, 255, 255, 0.08); /* Adjust for dark mode */
+  }
+  
+  .theme-toggle-button svg {
+    width: 20px; /* Adjust icon size */
+    height: 20px;
+  }
+  .theme-toggle-text {
+    display: none; /* Hide text by default, show on larger screens or if preferred */
+  }
+  .recommendations-section h3,
+.available-courses-section h3 {
+  margin-top: 0; /* First heading in a section */
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.recommendation-group {
+  margin-bottom: 30px;
+}
+
+.recommendation-group h4 {
+  font-size: 1.4em;
+  color: var(--text-muted); /* Or a specific accent color */
+  margin-bottom: 15px;
+  /* You could add specific icons per type here using ::before */
+}
+
+/* Example: Specific styling for goal-driven recommendations */
+.recommendation-group-goal_driven h4 {
+  color: var(--secondary-green-light); /* Or your preferred accent */
+}
+html[data-theme='dark'] .recommendation-group-goal_driven h4 {
+  color: var(--secondary-green-dark);
+}
+
+.recommendation-item {
+  /* .card-item styles are already applied */
+  padding: 15px; /* Ensure padding */
+}
+
+.recommendation-link strong {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  color: var(--link-color); /* Ensure link color is applied */
+}
+
+.recommendation-message {
+  font-size: 0.95em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.recommendation-category,
+.course-category {
+  display: inline-block;
+  background-color: var(--medium-gray-light);
+  color: var(--text-color); /* Adjust for contrast */
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+html[data-theme='dark'] .recommendation-category,
+html[data-theme='dark'] .course-category {
+  background-color: var(--medium-gray-dark);
+  color: var(--text-color-dark-theme);
+}
+
+.course-list-item p {
+    font-size: 0.9em;
+    color: var(--text-muted);
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+  /* Add to your frontend/src/index.css */
+
+/* ... (your existing styles) ... */
+
+.recommendation-group-title {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    font-size: 1.4em;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+  }
+  
+  .recommendation-group-title svg {
+    /* Icon color will inherit from parent (h4 color) by default */
+    /* You can set a specific color if needed: */
+    /* fill: var(--link-color); */
+  }
+  
+  /* Example: Specific icon color for a type if needed */
+  .recommendation-group-goal_driven .recommendation-group-title svg {
+    fill: var(--secondary-green-light); /* Or the color you used for the h4 */
+  }
+  html[data-theme='dark'] .recommendation-group-goal_driven .recommendation-group-title svg {
+    fill: var(--secondary-green-dark);
+  }
+  
+  
+  .recommendation-tags,
+  .course-tags { /* Shared styling for tags display */
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .tag-item {
+    background-color: var(--medium-gray-light);
+    color: var(--text-color); /* Ensure good contrast */
+    padding: 3px 8px;
+    border-radius: 12px; /* More pill-shaped */
+    font-size: 0.75em;    /* Smaller font for tags */
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    transition: background-color var(--transition-speed-fast) var(--transition-easing),
+                color var(--transition-speed-fast) var(--transition-easing),
+                border-color var(--transition-speed-fast) var(--transition-easing);
+  }
+  
+  html[data-theme='dark'] .tag-item {
+    background-color: var(--medium-gray-dark);
+    color: var(--text-color-dark-theme);
+    border-color: var(--border-color-dark);
+  }
+  
+  /* Optional: Hover effect for tags */
+  .tag-item:hover {
+    background-color: var(--info-gray-light); /* Or a primary accent color */
+    color: var(--white-base);
+    border-color: var(--info-gray-light);
+  }
+  html[data-theme='dark'] .tag-item:hover {
+    background-color: var(--info-gray-dark);
+    color: var(--black-base-dark); /* Or a dark mode primary accent */
+    border-color: var(--info-gray-dark);
+  }
+  
+  
+  /* Ensure recommendation item has enough space for tags */
+  .recommendation-item {
+    padding-bottom: 10px; /* Add some bottom padding if tags make it too tight */
+  }
+  
+  /* Add to your frontend/src/index.css */
+
+/* ... (your existing styles for .recommendation-group, .recommendation-item etc.) ... */
+
+ol.recommendation-list-numbered {
+    list-style-type: decimal; /* Use decimal numbers */
+    padding-left: 25px; /* Add some padding for the numbers */
+    margin-top: 10px; /* Space above the list */
+  }
+  
+  ol.recommendation-list-numbered li.recommendation-item {
+    /* You might want slightly different styling for numbered items if needed */
+    /* For example, adjust margin if the number takes up space */
+    margin-bottom: 15px; /* Ensure consistent spacing between items */
+  }
+  
+  /* Optional: Style the number itself if desired, though browser defaults are often fine */
+  /*
+  ol.recommendation-list-numbered li::marker {
+    color: var(--primary-blue-light);
+    font-weight: bold;
+  }
+  
+  html[data-theme='dark'] ol.recommendation-list-numbered li::marker {
+    color: var(--primary-blue-dark);
+  }
+  */
+  
+  /* Ensure the recommendation content within the li aligns well if numbers are large */
+  .recommendation-item .recommendation-content { /* You might need to wrap content in a div if not already */
+    /* display: inline-block; /* Or flex, depending on desired alignment with number */
+    /* vertical-align: top; */
+  }
+  
+ /* Add to your frontend/src/index.css */
+
+/* ... (your existing styles) ... */
+
+.recommendation-meta,
+.course-meta {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap if space is tight */
+  align-items: center;
+  gap: 10px; /* Space between category and difficulty */
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 0.85em;
+}
+
+.difficulty-badge {
+  padding: 3px 10px;
+  border-radius: 12px; /* Pill shape */
+  font-weight: 500;
+  font-size: 0.9em; /* Relative to parent (.recommendation-meta) */
+  text-transform: capitalize;
+  border: 1px solid transparent;
+}
+
+/* Specific styles for each difficulty level */
+.difficulty-beginner {
+  background-color: #d4edda; /* Light green */
+  color: #155724; /* Dark green text */
+  border-color: #c3e6cb;
+}
+html[data-theme='dark'] .difficulty-beginner {
+  background-color: #1e3b25;
+  color: #a3cfbb;
+  border-color: #2a5238;
+}
+
+.difficulty-intermediate {
+  background-color: #d1ecf1; /* Light blue/info */
+  color: #0c5460; /* Dark blue/info text */
+  border-color: #bee5eb;
+}
+html[data-theme='dark'] .difficulty-intermediate {
+  background-color: #1c3f49;
+  color: #a1d9e3;
+  border-color: #275763;
+}
+
+.difficulty-advanced {
+  background-color: #f8d7da; /* Light red/danger */
+  color: #721c24; /* Dark red/danger text */
+  border-color: #f5c6cb;
+}
+html[data-theme='dark'] .difficulty-advanced {
+  background-color: #4d1f25;
+  color: #f0b9bf;
+  border-color: #692b33;
+}
+
+.difficulty-all-levels {
+  background-color: var(--medium-gray-light);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .difficulty-all-levels {
+  background-color: var(--medium-gray-dark);
+  color: var(--text-color-dark-theme);
+  border-color: var(--border-color-dark);
+}
+
+/* Adjustments for course list item layout */
+.course-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top */
+  gap: 15px; /* Space between content and progress indicator */
+}
+
+.course-item-content {
+  flex-grow: 1; /* Allow content to take available space */
+}
+
+.course-progress-indicator {
+  flex-shrink: 0; /* Prevent progress indicator from shrinking */
+  padding-top: 5px; /* Align with title roughly */
+}
+
+.course-description { /* Class added in JSX */
+    font-size: 0.9em;
+    color: var(--text-muted);
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+/* Add to your frontend/src/index.css */
+
+/* ... (your existing styles) ... */
+
+.recommendation-item {
+    display: flex; /* Use flexbox for better layout of content and CTA */
+    flex-direction: column; /* Stack content and CTA vertically */
+    justify-content: space-between; /* Push CTA to bottom if item has fixed height, or just groups them */
+  }
+  
+  .recommendation-content {
+    flex-grow: 1; /* Allow content to take up available space */
+  }
+  
+  .recommendation-cta {
+    margin-top: 15px; /* Space above the CTA button */
+    align-self: flex-start; /* Align button to the start of the flex container */
+  }
+  
+  .recommendation-action-button {
+    /* Inherits .button styles. Add specific overrides or new styles here. */
+    padding: 6px 12px; /* Smaller padding for a smaller button */
+    font-size: 0.9em;
+    /* Example: Make it a primary action color */
+    /* background-color: var(--button-primary-background); */
+    /* color: var(--button-primary-text); */
+    /* border-color: var(--button-primary-background); */
+  }
+  
+  .recommendation-action-button:hover {
+    /* background-color: var(--button-primary-hover-background); */
+    /* border-color: var(--button-primary-hover-background); */
+  }
+  
+  /* Specific CTA for 'Next Step' to make it more prominent */
+  .recommendation-group-next_step .recommendation-action-button {
+    background-color: var(--button-success-background); /* e.g., Green for go/continue */
+    color: var(--button-success-text);
+    border-color: var(--button-success-background);
+  }
+  
+  .recommendation-group-next_step .recommendation-action-button:hover {
+    background-color: var(--button-success-hover-background);
+    border-color: var(--button-success-hover-background);
+  }
+  
+  /* Add to your frontend/src/index.css */
+
+/* ... (your existing styles) ... */
+
+.recommendation-description-snippet,
+p.course-description { /* Target both recommendation snippets and existing course descriptions */
+  font-size: 0.9em;
+  color: var(--text-muted);
+  margin-top: 8px;     /* Space above the snippet */
+  margin-bottom: 10px; /* Space below the snippet */
+  line-height: 1.4;    /* Improve readability of the snippet */
+  /* max-height: 4.2em; /* Optional: Limit to about 3 lines using line-height */
+  /* overflow: hidden; */ /* Optional: Hide overflow if using max-height */
+  /* text-overflow: ellipsis; */ /* Optional: Add ellipsis if using max-height and overflow hidden */
+}
+
+/* Ensure recommendation item has enough space if description is added */
+.recommendation-item .recommendation-content {
+  /* Existing styles */
+}
+
+/* Add to your frontend/src/index.css */
+
+/* ... (your existing styles for .recommendation-item, etc.) ... */
+
+.recommendation-item {
+    /* Ensure card-item base styles are applied */
+    /* Add a default left border that can be overridden */
+    border-left: 5px solid var(--border-color); /* Default subtle border */
+    padding-left: 15px; /* Add padding to accommodate the border */
+    transition: border-left-color var(--transition-speed-normal) var(--transition-easing);
+    position: relative; /* For potential future pseudo-elements or absolute positioned badges */
+  }
+  
+  /* Specific border colors based on recommendation type */
+  
+  /* Next Step (already has emphasis, but we can ensure its border is distinct) */
+  .recommendation-item-next_step {
+    border-left-color: var(--button-success-background); /* Green, like its CTA */
+  }
+  html[data-theme='dark'] .recommendation-item-next_step {
+    border-left-color: var(--button-success-background); /* Use the same variable, it's already themed */
+  }
+  
+  /* Goal Driven */
+  .recommendation-item-goal_driven {
+    border-left-color: var(--primary-blue-light); /* Primary blue */
+  }
+  html[data-theme='dark'] .recommendation-item-goal_driven {
+    border-left-color: var(--primary-blue-dark);
+  }
+  
+  /* Interest Based */
+  .recommendation-item-interest_based {
+    border-left-color: var(--accent-teal-light); /* Teal accent */
+  }
+  html[data-theme='dark'] .recommendation-item-interest_based {
+    border-left-color: var(--accent-teal-dark);
+  }
+  
+  /* Category Based */
+  .recommendation-item-category_based {
+    border-left-color: var(--accent-purple-light); /* Purple accent */
+  }
+  html[data-theme='dark'] .recommendation-item-category_based {
+    border-left-color: var(--accent-purple-dark);
+  }
+  
+  /* Fallback Recent */
+  .recommendation-item-fallback_recent {
+    border-left-color: var(--info-gray-light); /* Neutral gray */
+  }
+  html[data-theme='dark'] .recommendation-item-fallback_recent {
+    border-left-color: var(--info-gray-dark);
+  }
+  
+  /* General (if any) */
+  .recommendation-item-general {
+    border-left-color: var(--medium-gray-light); /* Another neutral */
+  }
+  html[data-theme='dark'] .recommendation-item-general {
+    border-left-color: var(--medium-gray-dark);
+  }
+  
+  /* Ensure the .recommendation-group-emphasis border doesn't clash too much
+     if the item inside also gets a border. You might want to adjust.
+     For example, the group emphasis border is already quite strong.
+     Perhaps for items within an emphasized group, their specific left border is less necessary
+     or should be more subtle.
+  */
+  .recommendation-group-emphasis .recommendation-item-next_step {
+      /* If the group already has a strong border, maybe make this one thinner or a different style */
+      /* border-left-width: 3px; */
+  }
+  
+  /* Add to your frontend/src/index.css */
+
+/* ... (your existing styles for .recommendation-item, .card-item, etc.) ... */
+
+.recommendation-item {
+    /* Ensure flex direction is column if not already set by .card-item or other rules */
+    /* display: flex; /* Already set in previous step */
+    /* flex-direction: column; /* Already set in previous step */
+    /* justify-content: space-between; /* Already set in previous step */
+    gap: 10px; /* Add a small gap between main content and CTA if they are direct children */
+  }
+  
+  .recommendation-content {
+    /* This div wraps most of the text content within the card */
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Vertical spacing between elements within the content area */
+  }
+  
+  .recommendation-link strong {
+    font-size: 1.25em; /* Make title a bit larger */
+    color: var(--link-color); /* Ensure it uses the link color */
+    line-height: 1.3;
+    /* margin-bottom: 4px; /* Replaced by gap in .recommendation-content */
+  }
+  
+  .recommendation-message {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.95em;
+    /* margin-bottom: 8px; /* Replaced by gap in .recommendation-content */
+  }
+  
+  .recommendation-description-snippet {
+    font-size: 0.9em;
+    color: var(--text-color); /* Standard text color for description */
+    line-height: 1.5;
+    /* margin-bottom: 10px; /* Replaced by gap in .recommendation-content */
+  }
+  
+  .recommendation-meta {
+    /* This div holds category and difficulty */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px; /* Increased gap for better separation */
+    font-size: 0.8em; /* Slightly smaller font for meta items */
+    /* margin-top: 8px; /* Replaced by gap in .recommendation-content */
+    /* margin-bottom: 8px; /* Replaced by gap in .recommendation-content */
+  }
+  
+  .recommendation-category,
+  .difficulty-badge {
+    /* Styles for these are already defined, ensure they look good with new spacing */
+  }
+  
+  .recommendation-tags {
+    /* This div holds the tag items */
+    /* margin-top: 10px; /* Replaced by gap in .recommendation-content */
+    /* display: flex; /* Already set */
+    /* flex-wrap: wrap; /* Already set */
+    /* gap: 6px; /* Already set */
+  }
+  
+  .tag-item {
+    /* Styles for individual tags are already defined */
+  }
+  
+  .recommendation-cta {
+    margin-top: auto; /* Pushes CTA to the bottom if .recommendation-item is flex column */
+    padding-top: 10px; /* Add some space above CTA if there's a gap in .recommendation-item */
+    align-self: flex-start; /* Keep button aligned to the start */
+  }
+  
+  .recommendation-action-button {
+    /* Styles for the CTA button are already defined */
+    /* Ensure it's visually distinct */
+  }
+  
+  /* Adjustments for numbered list items to align content nicely with the number */
+  ol.recommendation-list-numbered li.recommendation-item {
+    display: flex; /* Use flex to align number and content */
+    gap: 10px; /* Space between number (pseudo-element) and content */
+  }
+  
+  ol.recommendation-list-numbered li.recommendation-item::before {
+    /* This targets the number itself if you want to style it beyond list-style-type */
+    /* content: counter(list-item) ". "; /* Handled by list-style-type: decimal */
+    /* font-weight: bold; */
+    /* color: var(--primary-blue-light); */
+    /* align-self: flex-start; /* Align number to the top */
+    /* padding-top: 0; /* Adjust if needed based on title line height */
+  }
+  
+  /* The .recommendation-content and .recommendation-cta will be flex items within the li */
+  
+  
+ /* Add to your frontend/src/index.css */
+
+/* ... (your existing styles) ... */
+
+.course-details-page .course-details-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .course-details-page h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .course-meta-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+  }
+  
+  .course-category-detail,
+  .course-details-page .difficulty-badge { /* Target difficulty badge specifically on this page if needed */
+    /* difficulty-badge already has styling, this is for context */
+  }
+  .course-category-detail {
+      background-color: var(--medium-gray-light);
+      color: var(--text-color);
+      padding: 4px 10px;
+      border-radius: 4px;
+  }
+  html[data-theme='dark'] .course-category-detail {
+      background-color: var(--medium-gray-dark);
+      color: var(--text-color-dark-theme);
+  }
+  
+  
+  .course-tags-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .course-tags-detail .tag-item {
+    /* .tag-item already has styling */
+  }
+  
+  .course-description-full {
+    line-height: 1.7;
+    margin-bottom: 30px;
+    color: var(--text-color);
+  }
+  
+  .course-action-section {
+    background-color: var(--component-background-alt);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center; /* Center the button and progress text */
+  }
+  .course-action-section h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+  }
+  
+  .course-action-button {
+    padding: 12px 25px; /* Make it a prominent button */
+    font-size: 1.1em;
+  }
+  
+  .course-modules-section h3 {
+    margin-bottom: 20px;
+  }
+  
+  .module-item {
+    /* .card-item styles are applied */
+    margin-bottom: 25px;
+    padding: 20px;
+  }
+  
+  .module-item h4 {
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: var(--primary-blue-light);
+    display: flex; /* Align icon and text */
+    align-items: center;
+  }
+  html[data-theme='dark'] .module-item h4 {
+    color: var(--primary-blue-dark);
+  }
+  .module-item h4 svg { /* Style for ModuleIcon */
+      fill: var(--primary-blue-light);
+  }
+  html[data-theme='dark'] .module-item h4 svg {
+      fill: var(--primary-blue-dark);
+  }
+  
+  
+  .module-description {
+    font-size: 0.95em;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+  }
+  
+  .lesson-list {
+    list-style: none;
+    padding-left: 10px; /* Indent lessons slightly under module */
+  }
+  
+  .lesson-item {
+    padding: 10px 5px;
+    border-bottom: 1px solid var(--border-color-light); /* Lighter border for lessons */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color var(--transition-speed-fast) ease;
+  }
+  html[data-theme='dark'] .lesson-item {
+    border-bottom-color: var(--border-color-dark);
+  }
+  
+  
+  .lesson-item:last-child {
+    border-bottom: none;
+  }
+  
+  .lesson-item a {
+    text-decoration: none;
+    color: var(--text-color);
+    flex-grow: 1;
+    display: flex; /* Align icon and text */
+    align-items: center;
+  }
+  .lesson-item a:hover {
+    color: var(--link-hover-color);
+  }
+  .lesson-item svg { /* Style for LessonIcon */
+      fill: var(--text-muted); /* Or a specific color */
+  }
+  html[data-theme='dark'] .lesson-item svg {
+      fill: var(--text-muted-dark-theme);
+  }
+  .lesson-item a:hover svg {
+      fill: var(--link-hover-color);
+  }
+  
+  
+  .lesson-completed a {
+    /* color: var(--text-muted); */
+    /* text-decoration: line-through; /* Optional: line-through for completed */
+  }
+  
+  .lesson-completed .check-circle-completed { /* Class for the SVG icon itself */
+    /* Already styled inline, but you can add more here */
+  }
+  
+  .lesson-pending a {
+    font-weight: 500; /* Make pending lessons slightly bolder */
+  }
+  
+  /* Add to your frontend/src/index.css */
+
+/* ... (your existing styles) ... */
+
+.lesson-details-page .lesson-header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .lesson-details-page .lesson-header h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  
+  .lesson-breadcrumb {
+    font-size: 0.9em;
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+  .lesson-breadcrumb a {
+      font-weight: 500;
+  }
+  
+  .lesson-content-area {
+    line-height: 1.7;
+    margin-top: 20px; /* Ensure space from header */
+  }
+  .lesson-content-area h1,
+  .lesson-content-area h2,
+  .lesson-content-area h3,
+  .lesson-content-area h4 {
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+  }
+  .lesson-content-area p {
+      margin-bottom: 1em;
+  }
+  .lesson-content-area ul,
+  .lesson-content-area ol {
+      margin-bottom: 1em;
+      padding-left: 20px;
+  }
+  .lesson-content-area li {
+      margin-bottom: 0.5em;
+  }
+  .lesson-content-area pre { /* For code blocks if any */
+      background-color: var(--code-background);
+      color: var(--code-text-color);
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin-bottom: 1em;
+  }
+  .lesson-content-area code { /* For inline code */
+      /* Already styled globally, but you can add specifics */
+  }
+  
+  
+  .lesson-actions-area {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between buttons */
+  }
+  
+  .lesson-completed-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    /* .message.success styles should apply */
+  }
+  .lesson-completed-message svg { /* Targeting the CheckCircleIcon */
+      /* Inline style already sets color, but you can override or add size */
+      width: 1.2em;
+      height: 1.2em;
+  }
+  /* Ensure CheckCircleIcon color adapts to dark mode if not handled by inline var() */
+  html[data-theme='dark'] .lesson-completed-message svg {
+      fill: var(--secondary-green-dark); /* If var(--secondary-green-light) was used inline */
+  }
+  /* Add to your frontend/src/index.css */
+
+/* ... (your existing styles for .lesson-actions-area, .button etc.) ... */
+
+.lesson-actions-area {
+  /* Existing styles: display: flex; align-items: center; gap: 15px; etc. */
+  justify-content: space-between; /* Distribute buttons if multiple */
+}
+
+.lesson-actions-area .button svg { /* Style for icons inside buttons */
+    vertical-align: middle;
+}
+
+.lesson-complete-btn {
+    /* Specific styles if needed */
+}
+
+.lesson-next-btn {
+    /* Specific styles if needed, e.g., make it more prominent */
+}
+
+/* ... other styles ... */
+
+.next-up-icon svg, /* If you wrap the icon component in a span with this class */
+svg.next-up-icon /* If the class is directly on the SVG component (less common for React components) */ {
+  /* The color is set inline via style prop for now, but you can target it here */
+  /* fill: var(--warning-yellow-light); */ /* Example */
+}
+/* The inline style for NextUpIcon already sets its color, but this is for the dark mode theme variable */
+html[data-theme='dark'] .next-up-icon svg { /* This targets the SVG within the .next-up-icon component */
+    fill: var(--warning-yellow-dark) !important; /* Use !important if inline style overrides */
+}
+/* Or, if you added the class directly to the SVG component in JS: */
+/*
+html[data-theme='dark'] svg.next-up-icon {
+    fill: var(--warning-yellow-dark);
+}
+*/
+/* Styles from index_css_course_details (ensure these are in your index.css) */
+
+.module-item h4.module-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-item.module-completed-item {
+  background-color: var(--component-background-alt);
+  border-left: 5px solid var(--secondary-green-light);
+}
+
+html[data-theme='dark'] .module-item.module-completed-item {
+  background-color: #2a2e32;
+  border-left-color: var(--secondary-green-dark);
+}
+
+.module-item.module-completed-item h4.module-title .check-circle-completed svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+/* ... other styles ... */
+  /* Add to your frontend/src/index.css */
+
+/* ... (your existing styles) ... */
+
+.profile-page h2 {
+  margin-bottom: 25px;
+}
+
+.profile-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.profile-info,
+.learning-stats {
+  /* .card-item styles are applied */
+  padding: 20px; /* Ensure padding */
+}
+
+.profile-info h3,
+.learning-stats h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  color: var(--primary-blue-light);
+}
+html[data-theme='dark'] .profile-info h3,
+html[data-theme='dark'] .learning-stats h3 {
+  color: var(--primary-blue-dark);
+}
+
+.learning-stats ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.learning-stats li {
+  padding: 5px 0;
+  font-size: 1em;
+  border-bottom: 1px dashed var(--border-color-light);
+}
+html[data-theme='dark'] .learning-stats li {
+  border-bottom-color: var(--border-color-dark);
+}
+.learning-stats li:last-child {
+  border-bottom: none;
+}
+.learning-stats li strong {
+  color: var(--text-color);
+}
+
+.profile-page .page-section.card-item { /* For interest/goals forms */
+  margin-top: 20px; /* Override default page-section margin if needed */
+  padding: 20px;
+}
+.profile-page .page-section.card-item h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+
+.courses-in-progress-section h3,
+.completed-courses-section h3 {
+  margin-bottom: 15px;
+  font-size: 1.4em;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.profile-course-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive course cards */
+  gap: 20px;
+}
+
+.profile-course-list li.card-item {
+  /* .card-item styles provide base */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes button to bottom */
+  padding: 15px;
+}
+
+.profile-course-list li strong {
+  font-size: 1.1em;
+  display: block;
+  margin-bottom: 5px;
+}
+.profile-course-list li p {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  flex-grow: 1; /* Allows description to take space before button */
+}
+.profile-course-list li .button {
+  margin-top: auto; /* Pushes button to the bottom of the card */
+  align-self: flex-start; /* Aligns button to the left */
+}
+/* Add to your frontend/src/index.css */
+
+/* ... (your existing styles) ... */
+
+/* Main container for the All Courses page */
+.all-courses-page h2 {
+  margin-bottom: 25px;
+  text-align: center; /* Center the main title */
+}
+
+/* Styling for the filter and search bar section */
+.filters-and-search-bar {
+  /* .card-item and .page-section styles are already applied */
+  padding: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column; /* Stack search and filters vertically on small screens */
+  gap: 20px;
+}
+
+@media (min-width: 768px) { /* Apply side-by-side layout on medium screens and up */
+  .filters-and-search-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.search-input-group {
+  flex-grow: 1; /* Allow search input to take more space */
+  display: flex; /* For potential icon button */
+}
+
+.search-input {
+  width: 100%; /* Make input take full width of its container */
+  padding: 12px 15px; /* More padding */
+  font-size: 1em;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  /* transition properties are already on general input styles */
+}
+.search-input:focus {
+  /* focus styles are already on general input styles */
+}
+
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap; /* Allow filters to wrap on very small screens */
+  gap: 15px; /* Space between filter groups */
+}
+
+@media (min-width: 768px) {
+  .filter-controls {
+    flex-wrap: nowrap; /* Prevent wrapping on larger screens */
+  }
+}
+
+
+.filter-group {
+  display: flex;
+  flex-direction: column; /* Stack label and select */
+  gap: 5px; /* Space between label and select */
+}
+.filter-group label {
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.filter-group select {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--form-input-background);
+  color: var(--form-input-text-color);
+  min-width: 150px; /* Give selects a minimum width */
+}
+
+/* Styling for the course list section */
+.course-list-section {
+  /* .page-section styles are applied */
+}
+
+.search-results-count {
+    font-size: 0.95em;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+ul.course-list-all {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  /* Responsive grid for course cards */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.course-list-item-all {
+  /* .card-item styles are applied for base card look */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes button to the bottom */
+  padding: 15px; /* Override card-item padding if needed */
+}
+
+.course-item-content-all {
+  flex-grow: 1; /* Allows content to fill space before button */
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Spacing between title, description, meta, tags */
+}
+
+.course-link-all strong {
+  font-size: 1.2em;
+  color: var(--link-color);
+  line-height: 1.3;
+}
+
+.course-description-all {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex-grow: 1; /* Allow description to take available space */
+}
+
+.course-meta-all {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8em;
+  margin-top: auto; /* Push meta towards bottom if content is short */
+  padding-top: 8px; /* Space above meta if content is short */
+}
+/* .course-category and .difficulty-badge styles are already defined */
+
+.course-list-item-all .course-tags {
+  /* .course-tags and .tag-item styles are already defined */
+  margin-top: 8px;
+}
+
+.course-list-item-action {
+  margin-top: 15px; /* Space above the "View Details" button */
+  align-self: flex-start; /* Align button to the left */
+}
+.course-list-item-action .button-small {
+  /* .button and .button-small styles are already defined */
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  /* .page-section styles are applied */
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px; /* Add padding if .page-section doesn't have enough */
+  border-top: 1px solid var(--border-color); /* Add separator if .page-section doesn't have it */
+}
+.pagination-controls .button {
+  margin: 0 8px;
+}
+.pagination-controls span {
+  margin: 0 10px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+.pagination-controls .button:disabled {
+  /* Disabled button styles are already defined */
+}
+
+/* Screen reader only class for labels if needed */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Add to your frontend/src/index.css */
+
+/* ... (your existing styles) ... */
+
+/* Main container for the All Courses page */
+.all-courses-page h2 {
+  margin-bottom: 25px;
+  text-align: center; /* Center the main title */
+  color: var(--primary-blue-light); /* Use a theme color */
+}
+html[data-theme='dark'] .all-courses-page h2 {
+  color: var(--primary-blue-dark);
+}
+
+/* Styling for the filter and search bar section */
+.filters-and-search-bar {
+  /* .card-item and .page-section styles might be applied from JSX */
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: var(--component-background-alt); /* Subtle background */
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid var(--border-color);
+}
+
+@media (min-width: 768px) { /* Apply side-by-side layout on medium screens and up */
+  .filters-and-search-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end; /* Align items to the bottom for better visual */
+  }
+}
+
+.search-input-group {
+  flex-grow: 1; /* Allow search input to take more space */
+  display: flex;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1em;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--form-input-background);
+  color: var(--form-input-text-color);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.search-input:focus {
+  border-color: var(--form-input-focus-border-color);
+  box-shadow: var(--form-input-focus-box-shadow);
+  outline: none;
+}
+
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end; /* Align filter groups nicely */
+}
+
+@media (min-width: 768px) {
+  .filter-controls {
+    flex-wrap: nowrap;
+  }
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.filter-group label {
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 2px; /* Small space above select */
+}
+.filter-group select {
+  padding: 11px 10px; /* Match height with search input better */
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--form-input-background);
+  color: var(--form-input-text-color);
+  min-width: 180px; /* Give selects a decent minimum width */
+  font-size: 0.95em;
+  cursor: pointer;
+}
+.filter-group select:focus {
+  border-color: var(--form-input-focus-border-color);
+  box-shadow: var(--form-input-focus-box-shadow);
+  outline: none;
+}
+
+
+/* Styling for the course list section */
+.course-list-section {
+  /* .page-section styles might be applied from JSX */
+}
+
+.search-results-count {
+    font-size: 0.95em;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    text-align: left;
+    font-style: italic;
+}
+
+ul.course-list-all {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 25px; /* Increased gap */
+}
+
+.course-list-item-all {
+  /* .card-item styles are applied for base card look */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px; /* Consistent padding */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Hover effect */
+}
+.course-list-item-all:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-hover-shadow); /* Use pre-defined hover shadow */
+}
+
+
+.course-item-content-all {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Spacing within content */
+}
+
+.course-link-all strong {
+  font-size: 1.25em; /* Slightly larger title */
+  color: var(--link-color);
+  line-height: 1.3;
+}
+.course-link-all:hover strong {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+.course-description-all {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex-grow: 1;
+  margin-bottom: 10px; /* Space before meta/tags */
+}
+
+.course-meta-all {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px; /* Increased gap */
+  font-size: 0.8em;
+  margin-top: auto; /* Push towards bottom */
+  padding-top: 10px;
+}
+/* .course-category and .difficulty-badge styles are already defined and should apply */
+
+.course-list-item-all .course-tags {
+  /* .course-tags and .tag-item styles are already defined */
+  margin-top: 10px; /* Space above tags */
+}
+
+.course-list-item-action {
+  margin-top: 20px; /* More space above the "View Details" button */
+  align-self: flex-start;
+}
+.course-list-item-action .button-small {
+  /* .button and .button-small styles are already defined */
+  /* Ensure it's visually appealing */
+  background-color: var(--button-primary-background);
+  color: var(--button-primary-text);
+}
+.course-list-item-action .button-small:hover {
+  background-color: var(--button-primary-hover-background);
+}
+
+
+/* Pagination Controls */
+.pagination-controls {
+  /* .page-section styles might be applied from JSX */
+  text-align: center;
+  margin-top: 40px; /* More space above pagination */
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+.pagination-controls .button {
+  margin: 0 8px;
+  padding: 8px 15px; /* Adjust padding */
+}
+.pagination-controls span {
+  margin: 0 12px;
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 1em;
+}
+.pagination-controls .button:disabled {
+  /* Disabled button styles are already defined and should apply */
+}
+
+/* Screen reader only class for labels if needed */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+  /* --- Media Queries for Responsiveness --- */
+  @media (max-width: 768px) {
+      .app-main-content {
+          padding: 0 10px;
+      }
+  
+      .app-header {
+          flex-direction: column;
+          padding: 10px;
+          text-align: center;
+      }
+  
+      .app-header .site-title {
+          margin-bottom: 10px;
+      }
+      .app-header .site-title h1 {
+          font-size: 1.6em;
+      }
+  
+      .app-header .main-nav {
+          margin-bottom: 10px; /* Space before theme toggle if header is column */
+      }
+      .app-header .main-nav ul {
+          flex-direction: column;
+          width: 100%;
+      }
+      .app-header .main-nav li {
+          margin: 8px 0; /* Adjust margin for stacked links */
+          width: 100%;
+      }
+      .app-header .main-nav a,
+      .app-header .main-nav .nav-button {
+          display: block; /* Make links/buttons take full width */
+          width: auto; /* Reset width for text centering */
+          margin-left: 0; /* Reset margin for stacked items */
+      }
+  
+      .theme-toggle-button {
+          margin-top: 10px; /* Space when header is stacked */
+          margin-left: 0;
+      }
+  
+      .page-container {
+          padding: 15px;
+          margin-top: 15px;
+          margin-bottom: 15px;
+      }
+  
+      .page-section {
+          margin-top: 20px;
+          padding-top: 15px;
+      }
+  
+      form {
+          padding: 15px;
+      }
+  
+      .lesson-content {
+          padding: 15px;
+      }
+  
+      .lesson-progress-section {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+      }
+  
+      .app-footer {
+          padding: 15px 10px; /* Adjust footer padding */
+      }
+  
+      h1 { font-size: 2em; }
+      h2 { font-size: 1.75em; }
+      h3 { font-size: 1.5em; }
+  }
+  
+  @media (max-width: 480px) {
+      .app-main-content {
+          padding: 0 5px;
+      }
+      .app-header .site-title h1 {
+          font-size: 1.4em;
+      }
+      .page-container {
+          padding: 10px;
+      }
+      .page-section {
+          margin-top: 15px;
+          padding-top: 10px;
+      }
+      form {
+          padding: 10px;
+      }
+      .lesson-content {
+          padding: 10px;
+      }
+      .app-footer {
+          padding: 10px 8px;
+      }
+      body {
+          font-size: 0.95em; /* Slightly smaller base font on small screens */
+      }
+      h1 { font-size: 1.8em; }
+      h2 { font-size: 1.6em; }
+      h3 { font-size: 1.4em; }
+  }
+  
+  
